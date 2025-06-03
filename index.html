@@ -64,7 +64,7 @@ td { text-align: center; border: solid 2px black
 <div class="container"><div class="report-content">
 <div class="header">
 	<h2 style="font-size:64px">Ark Merchandise<br> Disclosure
-</h2
+</h2>
 </div>
 
 <div class="basic-info" style="padding-top: 30px">
@@ -78,9 +78,9 @@ td { text-align: center; border: solid 2px black
 <br><br>
 
 <label for="startingCash">Starting Cash ($)</label>
-<input style="border-bottom: solid 1px black" id="startingCash" style="width: 100px" name="startingCash" oninput="calculateTotals()" step="0.01" type="number" value="100">
+<input style="width: 100px;border-bottom: solid 1px black" id="startingCash" name="startingCash" oninput="calculateTotals()" step="0.01" type="number" value="100">
 <label for="roundDown">Round Down ($)</label>
-<input style="border-bottom: solid 1px black"  id="roundDown" style="width: 100px" name="roundDown" oninput="calculateTotals()" step="1" type="number" value="5">
+<input style="width: 100px;border-bottom: solid 1px black"  id="roundDown" name="roundDown" oninput="calculateTotals()" step="1" type="number" value="5">
 </div>
 
 <h2>Merchandise Sales</h2>
@@ -132,7 +132,7 @@ td { text-align: center; border: solid 2px black
 </thead>
 <tbody>
 <tr>
-<td><strong>Credit/Debit</strong></td style="max-width: 80px">
+<td><strong>Credit/Debit</strong></td>
 <td><input  style="max-width: 80px" id="creditDebit" oninput="calculateTotals()" step="0.01" type="number"></td>
 </tr>
 <tr>
@@ -140,11 +140,9 @@ td { text-align: center; border: solid 2px black
 <td style="max-width: 90px"><input style="max-width: 90px" id="cash" oninput="calculateTotals()" step="0.01" type="number"></td>
 </tr>
 <tr>
-<tr>
 <td><strong>Checks</strong></td>
 <td style="max-width: 90px"><input style="max-width: 90px"  id="checks" oninput="calculateTotals()" step="0.01" type="number"></td>
 </tr>
-<tr>
 </tbody>
 </table>
 </div>
@@ -209,7 +207,7 @@ td { text-align: center; border: solid 2px black
 		<div class="form-group">
 <label for="artistSig">Artist</label>
 <input id="artistSig" style="padding-top:10px" name="artistSig" type="text">
-
+</td>
 </tr>
 </table>
 </div>

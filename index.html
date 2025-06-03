@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <title>Ark Merchandise Disclosure Tracker</title>
 
-<script >
+<script type="text/javascript">
         function calculateRow(input) {
             const row = input.closest('tr');
             const cells = row.querySelectorAll('input');
@@ -78,7 +78,11 @@ const arkCut = (parseFloat(document.getElementById('arkCut').value) || 0) / 100;
             document.getElementById('lessStartingCash').textContent = '$' + startingCash.toFixed(2);
             document.getElementById('lessCreditsChecks').textContent = '$' + lessCreditsChecks.toFixed(2);
            document.getElementById('netCash').textContent = '$' + netCash.toFixed(2);
-				document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded fown)";	document.getElementById('arkShare').textContent = '$' + arkShare.toFixed(2);
+				document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded fown)";
+				
+			mdocument.getElementById('petformerCutText').textContent = "~" + ((100 - arkCut ) * 100) + "% Due The Ark (rounded down)";
+						
+				document.getElementById('arkShare').textContent = '$' + arkShare.toFixed(2);
             document.getElementById('performerShare').textContent = '$' + performerShare.toFixed(2);
             document.getElementById('lessCredit').textContent = '$' + creditDebit.toFixed(2);
             document.getElementById('cashDuePerformer').textContent = '$' + cashDuePerformer.toFixed(2);
@@ -235,7 +239,7 @@ td { text-align: center; border: solid 2px black
 
 
 <label for="arkCut">Ark Cut Percentage</label>
-<input style="width: 100px;border-bottom: solid 1px black"  id="arkCut" name="arkCut" oninput="calculateTotals()" step="1" type="number" value="">
+<input style="width: 100px;border-bottom: solid 1px black"  id="arkCut" name="arkCut" oninput="calculateTotals()" step="1" type="number" value="10">
 </div>
 
 <h2>Merchandise Sales</h2>
@@ -342,7 +346,7 @@ td { text-align: center; border: solid 2px black
 </tr>
 <tr>
 		
-<td>90% Performer Total:</td>
+<td id="petformerCutText">90% Performer Total:</td>
 <td id="performerShare">$0.00</td>
 </tr>
 <tr>

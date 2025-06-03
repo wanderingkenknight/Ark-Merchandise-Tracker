@@ -267,14 +267,7 @@ td { text-align: center; border: solid 2px black
             // Calculate cash total
             const creditDebit = parseFloat(document.getElementById('creditDebit').value) || 0;
             const checks = parseFloat(document.getElementById('checks').value) || 0;
-        
-		/*
-						const change = parseFloat(document.getElementById('change').value) || 0;
-            const fives = parseFloat(document.getElementById('fives').value) || 0;
-            const tens = parseFloat(document.getElementById('tens').value) || 0;
-            const twenties = parseFloat(document.getElementById('twenties').value) || 0;
-            const largebills = parseFloat(document.getElementById('largebills').value) || 0;
-				*/
+
             const startingCash = parseFloat(document.getElementById('startingCash').value) || 0;
             
          const moneyTotal = startingCash + merchTotal;
@@ -357,8 +350,9 @@ function roundDownToNearest(num, roundDown) {
             csv += 'Merchandise Total,' + document.getElementById('merchTotal').textContent.replace('$', '') + '\n';
       
              let arkCut = parseFloat(document.getElementById('arkCut').value) || 0;
-              csv += "~" + arkCut + '% Due to Ark,' + document.getElementById('arkShare').textContent.replace('$', '') + '\n';csv += '90% Performer Total,' + document.getElementById('performerShare').textContent.replace('$', '') + '\n';
-              csv += "~" + (100 - arkCut) + "% Due to Performer,' + document.getElementById('cashDuePerformer').textContent.replace('$', '') + '\n';
+              csv += "~" + arkCut + '% Due to Ark,' + document.getElementById('arkShare').textContent.replace('$', '') + '\n';
+							csv += '~' + (100 - arkCut) + '% Performer Total,' + document.getElementById('performerShare').textContent.replace('$', '') + '\n';
+              csv += "~" + (100 - arkCut) + '% Due to Performer,' + document.getElementById('cashDuePerformer').textContent.replace('$', '') + '\n';
             
             // Download
             const blob = new Blob([csv], { type: 'text/csv' });

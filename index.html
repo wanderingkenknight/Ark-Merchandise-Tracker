@@ -4,156 +4,7 @@
 <head>
 <meta charset="utf-8">
 <title>Ark Merchandise Disclosure Tracker</title>
-
-<script type="text/javascript">
-        function calculateRow(input) {
-            const row = input.closest('tr');
-            const cells = row.querySelectorAll('input');
-            const numIn = parseFloat(cells[2].value) || 0;
-            const numOut = parseFloat(cells[3].value) || 0;
-					  const numComp = parseFloat(cells[4].value) || 0;	
-            const salePrice = parseFloat(cells[6].value) || 0;
-            
-            // Calculate "# Sold" (In - Out - Comp)
-            const numSold = numIn - numOut - numComp;
-            cells[5].value = numSold >= 0 ? numSold : 0;
-            
-            // Calculate total for this item
-            const actualSold = parseFloat(cells[5].value) || 0;
-            cells[7].value = (actualSold * salePrice).toFixed(2);
-        }
-        
-        function calculateTotals() {
-					
-					// determined Ark cut 
-					
-const arkCut = (parseFloat(document.getElementById('arkCut').value) || 0) / 100;
-
-					
-			//	const arkCut = 0.1;
-				
-            // Calculate merchandise total
-      
-						let merchTotal = 0;
-            const merchRows = document.querySelectorAll('#merchandiseTable tbody tr');
-            merchRows.forEach(row => {
-                const totalInput = row.querySelectorAll('input')[7];
-                if (totalInput) {
-                    merchTotal += parseFloat(totalInput.value) || 0;
-                }
-            });
-            
- const roundDown = (document.getElementById('roundDown').value) || 1;
-// const roundDown =   parseFloat(document.querySelector('input[name="roundBy"]:checked').value) || 1;
-						
-            // Calculate cash total
-            const creditDebit = parseFloat(document.getElementById('creditDebit').value) || 0;
-            const checks = parseFloat(document.getElementById('checks').value) || 0;
-        
-		/*
-						const change = parseFloat(document.getElementById('change').value) || 0;
-            const fives = parseFloat(document.getElementById('fives').value) || 0;
-            const tens = parseFloat(document.getElementById('tens').value) || 0;
-            const twenties = parseFloat(document.getElementById('twenties').value) || 0;
-            const largebills = parseFloat(document.getElementById('largebills').value) || 0;
-				*/
-            const startingCash = parseFloat(document.getElementById('startingCash').value) || 0;
-            
-         const moneyTotal = startingCash + merchTotal;
-				  const lessCreditsChecks = creditDebit + checks;
-					const netCash = moneyTotal - lessCreditsChecks -  startingCash;
-						
-       
-			//		const netCash = merchTotal /*  moneyTotal - startingCash */;
-          
-
-            // Calculate splits
-            const arkShare = roundDownToNearest(merchTotal * arkCut, roundDown);
-            const performerShare = (merchTotal - arkShare);
-            const cashDuePerformer = performerShare - creditDebit;
-            
-            // Update display
-            document.getElementById('merchTotal').textContent = '$' + merchTotal.toFixed(2);
-            document.getElementById('moneyTotal').textContent = '$' + moneyTotal.toFixed(2);
-            document.getElementById('lessStartingCash').textContent = '$' + startingCash.toFixed(2);
-            document.getElementById('lessCreditsChecks').textContent = '$' + lessCreditsChecks.toFixed(2);
-           document.getElementById('netCash').textContent = '$' + netCash.toFixed(2);
-				document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded fown)";
-				
-			mdocument.getElementById('petformerCutText').textContent = "~" + ((100 - arkCut ) * 100) + "% Due The Ark (rounded down)";
-						
-				document.getElementById('arkShare').textContent = '$' + arkShare.toFixed(2);
-            document.getElementById('performerShare').textContent = '$' + performerShare.toFixed(2);
-            document.getElementById('lessCredit').textContent = '$' + creditDebit.toFixed(2);
-            document.getElementById('cashDuePerformer').textContent = '$' + cashDuePerformer.toFixed(2);
-        }
-        
-        function addMerchRow() {
-            const tbody = document.querySelector('#merchandiseTable tbody');
-            const newRow = tbody.insertRow();
-            newRow.innerHTML = `
-                <td><input type="text" oninput="calculateTotals()"></td>
-                <td><input type="text" oninput="calculateTotals()"></td>
-                <td><input type="number" oninput="calculateRow(this); calculateTotals()"></td>                <td><input type="number" oninput="calculateRow(this); calculateTotals()"></td>
-                <td><input type="number" oninput="calculateRow(this); calculateTotals()"></td>
-                <td><input type="number" class="calculated" readonly></td>
-                <td><input type="number" step="0.01" oninput="calculateRow(this); calculateTotals()"></td>
-                <td><input type="number" step="0.01" class="calculated" readonly></td>
-            `;
-        }
-function roundDownToNearest(num, roundDown) {
-  return Math.floor(num / roundDown) * roundDown;
-}     
-
   
- function exportToCSV() {
-            let csv = 'Ark Merchandise Disclosure Export\n\n';
-            
-            // Basic info
-            csv += 'Artist,' + (document.getElementById('artist').value || '') + '\n';
-            csv += 'Date,' + (document.getElementById('date').value || '') + '\n';
-
-            csv += 'Starting Cash,' + (document.getElementById('startingCash').value || '0') + '\n\n';
-            csv += 'Round Down $,' + (document.getElementById('roundDown').value || '') + '\n';
-												
-            // Merchandise
-            csv += 'Merchandise Sales\n';
-            csv += 'Title,Type,# In,Out,Comp,# Sold,Sale Price,Total\n';
-            const merchRows = document.querySelectorAll('#merchandiseTable tbody tr');
-            merchRows.forEach(row => {
-                const inputs = row.querySelectorAll('input');
-                const rowData = Array.from(inputs).map(input => input.value || '0');
-                csv += rowData.join(',') + '\n';
-            });
-            
-            // Cash breakdown
-            csv += '\nCash Breakdown\n';
-            csv += 'Type,Amount\n';
-            csv += 'Credit/Debit,' + (document.getElementById('creditDebit').value || '0') + '\n';
-            csv += 'Checks,' + (document.getElementById('checks').value || '0') + '\n';
-            csv += 'Cash,' + (document.getElementById('cash').value || '0') + '\n';
-            
-            // Summary
-            csv += '\nSummary\n';
-            csv += 'Merchandise Total,' + document.getElementById('merchTotal').textContent.replace('$', '') + '\n';
-            csv += '% Due to Ark,' + document.getElementById('arkShare').textContent.replace('$', '') + '\n';
-            csv += '90% Performer Total,' + document.getElementById('performerShare').textContent.replace('$', '') + '\n';
-            csv += 'Cash Due to Performer,' + document.getElementById('cashDuePerformer').textContent.replace('$', '') + '\n';
-            
-            // Download
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'ark_merchandise_disclosure_' + new Date().toISOString().split('T')[0] + '.csv';
-            a.click();
-            window.URL.revokeObjectURL(url);
-        }
-        
-        // Initialize calculations
-        calculateTotals();
-    </script>
-    
 <style>
   button {
 		border: solid 6px red;
@@ -371,5 +222,156 @@ td { text-align: center; border: solid 2px black
 </div>
 </div>
 </div>
+<script type="text/javascript">
+        function calculateRow(input) {
+            const row = input.closest('tr');
+            const cells = row.querySelectorAll('input');
+            const numIn = parseFloat(cells[2].value) || 0;
+            const numOut = parseFloat(cells[3].value) || 0;
+					  const numComp = parseFloat(cells[4].value) || 0;	
+            const salePrice = parseFloat(cells[6].value) || 0;
+            
+            // Calculate "# Sold" (In - Out - Comp)
+            const numSold = numIn - numOut - numComp;
+            cells[5].value = numSold >= 0 ? numSold : 0;
+            
+            // Calculate total for this item
+            const actualSold = parseFloat(cells[5].value) || 0;
+            cells[7].value = (actualSold * salePrice).toFixed(2);
+        }
+        
+        function calculateTotals() {
+					
+					// determined Ark cut 
+					
+let arkCut = parseFloat(document.getElementById('arkCut').value) || 0;
+  
+  arkCut = arkCut / 100;
+
+					
+			//	const arkCut = 0.1;
+				
+            // Calculate merchandise total
+      
+						let merchTotal = 0;
+            const merchRows = document.querySelectorAll('#merchandiseTable tbody tr');
+            merchRows.forEach(row => {
+                const totalInput = row.querySelectorAll('input')[7];
+                if (totalInput) {
+                    merchTotal += parseFloat(totalInput.value) || 0;
+                }
+            });
+            
+ const roundDown = (document.getElementById('roundDown').value) || 1;
+// const roundDown =   parseFloat(document.querySelector('input[name="roundBy"]:checked').value) || 1;
+						
+            // Calculate cash total
+            const creditDebit = parseFloat(document.getElementById('creditDebit').value) || 0;
+            const checks = parseFloat(document.getElementById('checks').value) || 0;
+        
+		/*
+						const change = parseFloat(document.getElementById('change').value) || 0;
+            const fives = parseFloat(document.getElementById('fives').value) || 0;
+            const tens = parseFloat(document.getElementById('tens').value) || 0;
+            const twenties = parseFloat(document.getElementById('twenties').value) || 0;
+            const largebills = parseFloat(document.getElementById('largebills').value) || 0;
+				*/
+            const startingCash = parseFloat(document.getElementById('startingCash').value) || 0;
+            
+         const moneyTotal = startingCash + merchTotal;
+				  const lessCreditsChecks = creditDebit + checks;
+					const netCash = moneyTotal - lessCreditsChecks -  startingCash;
+						
+       
+			//		const netCash = merchTotal /*  moneyTotal - startingCash */;
+          
+
+            // Calculate splits
+            const arkShare = roundDownToNearest(merchTotal * arkCut, roundDown);
+            const performerShare = (merchTotal - arkShare);
+            const cashDuePerformer = performerShare - creditDebit;
+            
+            // Update display
+            document.getElementById('merchTotal').textContent = '$' + merchTotal.toFixed(2);
+            document.getElementById('moneyTotal').textContent = '$' + moneyTotal.toFixed(2);
+            document.getElementById('lessStartingCash').textContent = '$' + startingCash.toFixed(2);
+            document.getElementById('lessCreditsChecks').textContent = '$' + lessCreditsChecks.toFixed(2);
+           document.getElementById('netCash').textContent = '$' + netCash.toFixed(2);
+				document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded fown)";
+				
+		let temp = 100 - (arkCut * 100);	document.getElementById('petformerCutText').textContent = "~" + temp   + "% Due The Ark (rounded down)";
+						
+				document.getElementById('arkShare').textContent = '$' + arkShare.toFixed(2);
+            document.getElementById('performerShare').textContent = '$' + performerShare.toFixed(2);
+            document.getElementById('lessCredit').textContent = '$' + creditDebit.toFixed(2);
+            document.getElementById('cashDuePerformer').textContent = '$' + cashDuePerformer.toFixed(2);
+        }
+        
+        function addMerchRow() {
+            const tbody = document.querySelector('#merchandiseTable tbody');
+            const newRow = tbody.insertRow();
+            newRow.innerHTML = `
+                <td><input type="text" oninput="calculateTotals()"></td>
+                <td><input type="text" oninput="calculateTotals()"></td>
+                <td><input type="number" oninput="calculateRow(this); calculateTotals()"></td>                <td><input type="number" oninput="calculateRow(this); calculateTotals()"></td>
+                <td><input type="number" oninput="calculateRow(this); calculateTotals()"></td>
+                <td><input type="number" class="calculated" readonly></td>
+                <td><input type="number" step="0.01" oninput="calculateRow(this); calculateTotals()"></td>
+                <td><input type="number" step="0.01" class="calculated" readonly></td>
+            `;
+        }
+function roundDownToNearest(num, roundDown) {
+  return Math.floor(num / roundDown) * roundDown;
+}     
+
+  
+ function exportToCSV() {
+            let csv = 'Ark Merchandise Disclosure Export\n\n';
+            
+            // Basic info
+            csv += 'Artist,' + (document.getElementById('artist').value || '') + '\n';
+            csv += 'Date,' + (document.getElementById('date').value || '') + '\n';
+
+            csv += 'Starting Cash,' + (document.getElementById('startingCash').value || '0') + '\n\n';
+            csv += 'Round Down $,' + (document.getElementById('roundDown').value || '') + '\n';
+												
+            // Merchandise
+            csv += 'Merchandise Sales\n';
+            csv += 'Title,Type,# In,Out,Comp,# Sold,Sale Price,Total\n';
+            const merchRows = document.querySelectorAll('#merchandiseTable tbody tr');
+            merchRows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                const rowData = Array.from(inputs).map(input => input.value || '0');
+                csv += rowData.join(',') + '\n';
+            });
+            
+            // Cash breakdown
+            csv += '\nCash Breakdown\n';
+            csv += 'Type,Amount\n';
+            csv += 'Credit/Debit,' + (document.getElementById('creditDebit').value || '0') + '\n';
+            csv += 'Checks,' + (document.getElementById('checks').value || '0') + '\n';
+            csv += 'Cash,' + (document.getElementById('cash').value || '0') + '\n';
+            
+            // Summary
+            csv += '\nSummary\n';
+            csv += 'Merchandise Total,' + document.getElementById('merchTotal').textContent.replace('$', '') + '\n';
+            csv += '% Due to Ark,' + document.getElementById('arkShare').textContent.replace('$', '') + '\n';
+            csv += '90% Performer Total,' + document.getElementById('performerShare').textContent.replace('$', '') + '\n';
+            csv += 'Cash Due to Performer,' + document.getElementById('cashDuePerformer').textContent.replace('$', '') + '\n';
+            
+            // Download
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ark_merchandise_disclosure_' + new Date().toISOString().split('T')[0] + '.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        // Initialize calculations
+        calculateTotals();
+    </script>
+
 </body>
 </html>

@@ -244,9 +244,8 @@ td { text-align: center; border: solid 2px black
 					
 					// determined Ark cut 
 					
-let arkCut = parseFloat(document.getElementById('arkCut').value) || 0;
-  
-  arkCut = arkCut / 100;
+    let arkCut = parseFloat(document.getElementById('arkCut').value) || 0;
+    arkCut = arkCut / 100;
 
 					
 			//	const arkCut = 0.1;
@@ -356,9 +355,10 @@ function roundDownToNearest(num, roundDown) {
             // Summary
             csv += '\nSummary\n';
             csv += 'Merchandise Total,' + document.getElementById('merchTotal').textContent.replace('$', '') + '\n';
-            csv += '% Due to Ark,' + document.getElementById('arkShare').textContent.replace('$', '') + '\n';
-            csv += '90% Performer Total,' + document.getElementById('performerShare').textContent.replace('$', '') + '\n';
-            csv += 'Cash Due to Performer,' + document.getElementById('cashDuePerformer').textContent.replace('$', '') + '\n';
+      
+             let arkCut = parseFloat(document.getElementById('arkCut').value) || 0;
+              csv += "~" + arkCut + '% Due to Ark,' + document.getElementById('arkShare').textContent.replace('$', '') + '\n';csv += '90% Performer Total,' + document.getElementById('performerShare').textContent.replace('$', '') + '\n';
+              csv += "~" + (100 - arkCut) + "% Due to Performer,' + document.getElementById('cashDuePerformer').textContent.replace('$', '') + '\n';
             
             // Download
             const blob = new Blob([csv], { type: 'text/csv' });

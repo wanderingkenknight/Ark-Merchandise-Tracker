@@ -297,7 +297,8 @@ let arkCut = parseFloat(document.getElementById('arkCut').value) || 0;
             document.getElementById('lessStartingCash').textContent = '$' + startingCash.toFixed(2);
             document.getElementById('lessCreditsChecks').textContent = '$' + lessCreditsChecks.toFixed(2);
            document.getElementById('netCash').textContent = '$' + netCash.toFixed(2);
-				document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded fown)";
+				
+					 document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded fown)";
 				
 		let temp = 100 - (arkCut * 100);	document.getElementById('petformerCutText').textContent = "~" + temp   + "% Due The Ark (rounded down)";
 						

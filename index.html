@@ -25,7 +25,7 @@
   }
 td { text-align: center; border: solid 2px black
 }
-#headertable td { border: none }
+#headertable th { border: none ; text-align: center }
 
   .container {
     background: white;
@@ -64,14 +64,14 @@ td { text-align: center; border: solid 2px black
 <body>
 <div class="container">
         <div class="report-content">
-<div class="header">
-        <table id="headertable">
+<div class="header" style="width: 100%">
+        <table style="width: 100%" id="headertable">
                 <tr>
-                <td>
+                <th>
         <img src="IMG_3040.jpeg" alt="Ark logo">
-                </td><td>
+                </th><th>
 	<h2 style="font-size:64px">Ark Merchandise<br> Disclosure</h2>
-        </td></tr></table>
+        </th></tr></table>
 </div>
 
 <div class="basic-info" style="padding-top: 30px">
@@ -289,7 +289,7 @@ td { text-align: center; border: solid 2px black
             document.getElementById('lessCreditsChecks').textContent = '$' + lessCreditsChecks.toFixed(2);
            document.getElementById('netCash').textContent = '$' + netCash.toFixed(2);
 				
-					 document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded down):");
+					 document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded fown)";
 				
 		let temp = 100 - (arkCut * 100);	document.getElementById('petformerCutText').textContent = "~" + temp   + "% Due Artist:";
 						

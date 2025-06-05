@@ -82,13 +82,13 @@ td { text-align: center; border: solid 2px black
 
 <br><br>
 <label for="startingCash">Starting Cash ($)</label>
-<input style="width: 100px;border-bottom: solid 1px black" id="startingCash" name="startingCash" oninput="calculateTotals()" step="0.01" type="number" value="100">
-<label for="roundDown">Round Down ($)</label>
-<input style="width: 100px;border-bottom: solid 1px black"  id="roundDown" name="roundDown" oninput="calculateTotals()" step="1" type="number" value="5">
-
-
-<label for="arkCut">Ark Cut Percentage</label>
-<input style="width: 100px;border-bottom: solid 1px black"  id="arkCut" name="arkCut" oninput="calculateTotals()" step="1" type="number" value="10">
+<input style="width: 60px;border-bottom: solid 1px black" id="startingCash" name="startingCash" oninput="calculateTotals()" step="0.01" type="number" value="100">
+<label for="startingCashArtist">Artist Starting Cash ($)</label>
+<input style="width: 60px;border-bottom: solid 1px black" id="startingCashArtist" name="startingCashArtist" oninput="calculateTotals()" step="0.01" type="number" value="0">
+label for="roundDown">Round Down ($)</label>
+<input style="width: 60px;border-bottom: solid 1px black"  id="roundDown" name="roundDown" oninput="calculateTotals()" step="1" type="number" value="5">
+<label for="arkCut">Ark Cut (%)</label>
+<input style="width: 60px;border-bottom: solid 1px black"  id="arkCut" name="arkCut" oninput="calculateTotals()" step="1" type="number" value="10">
 </div>
 
 <h2>Merchandise Sales</h2>
@@ -266,10 +266,13 @@ td { text-align: center; border: solid 2px black
             const checks = parseFloat(document.getElementById('checks').value) || 0;
 
             const startingCash = parseFloat(document.getElementById('startingCash').value) || 0;
-            
-         const moneyTotal = startingCash + merchTotal;
-				  const lessCreditsChecks = creditDebit + checks;
-					const netCash = moneyTotal - lessCreditsChecks -  startingCash;
+        
+			     const startingCashArtist = parseFloat(document.getElementById('startingCashArtist').value) || 0;
+									
+         const moneyTotal = startingCash + startingCashArtist + merchTotal;
+				
+				 const lessCreditsChecks = creditDebit + checks;
+					const netCash = moneyTotal - lessCreditsChecks -  startingCash - startingCashArtist;
 						
        
 			//		const netCash = merchTotal /*  moneyTotal - startingCash */;
@@ -283,7 +286,7 @@ td { text-align: center; border: solid 2px black
             // Update display
             document.getElementById('merchTotal').textContent = '$' + merchTotal.toFixed(2);
             document.getElementById('moneyTotal').textContent = '$' + moneyTotal.toFixed(2);
-            document.getElementById('lessStartingCash').textContent = '$' + startingCash.toFixed(2);
+            document.getElementById('lessStartingCash').textContent = '$' + ( startingCash + startingCashArtist).toFixed(2);
             document.getElementById('lessCreditsChecks').textContent = '$' + lessCreditsChecks.toFixed(2);
            document.getElementById('netCash').textContent = '$' + netCash.toFixed(2);
 				
@@ -322,7 +325,10 @@ function roundDownToNearest(num, roundDown) {
             csv += 'Artist,' + (document.getElementById('artist').value || '') + '\n';
             csv += 'Date,' + (document.getElementById('date').value || '') + '\n';
 
-            csv += 'Starting Cash,' + (document.getElementById('startingCash').value || '0') + '\n\n';
+            csv += 'Ark  Starting Cash,' + (document.getElementById('startingCash').value || '0') + '\n\n';
+						
+				     csv += 'Artist  Starting Cash,' + (document.getElementById('startingCashArtist').value || '0') + '\n\n';
+										
             csv += 'Round Down $,' + (document.getElementById('roundDown').value || '') + '\n';
 												
             // Merchandise

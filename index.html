@@ -424,24 +424,24 @@ function exportToCSV() {
 	// currency breakdown
 	csv += '\currency  Breakdown\n';
       csv += 'Type,Nimber,Amount\n';
-      csv += 'Change,,' + (document.getElementById('changeAmount').value || '0') + '\n';
+      csv += 'Change,,' + (document.getElementById('changeAmount').textContent + '\n' || '0\n');
 			
       csv += '$1s,' + (document.getElementById('ones').value + "," || '0,');
-      csv +=  (document.getElementById('onesAmount').value + "," || '0,' +  '\n');
+      csv +=  (document.getElementById('onesAmount').textContent + "\n" || '0\n' );
 			
       csv += '$$5s,' + (document.getElementById('fives').value + "," || '0,');
-      csv +=  (document.getElementById('fivesAmount').value + "," || '0,' +  '\n');
+      csv +=  (document.getElementById('fivesAmount').textContent + "\n" || '0\n');
 			
       csv += '$$10s,' + (document.getElementById('tens').value + "," || '0,');
-      csv +=  (document.getElementById('tensAmount').value + "," || '0,' +  '\n');
+      csv +=  (document.getElementById('tensAmount').textContent + "\n" || '0\n' );
 
-	      csv += '$20s,' + (document.getElementById('twenties').value + "," || '0,');
-      csv +=  (document.getElementById('twentiesAmount').value + "," || '0,' + '\n');
+	      csv += '$20s,' + (document.getElementById('twenties').textContent + "," || '0,');
+      csv +=  (document.getElementById('twentiesAmount').textContent + "\n" || '0\n' + '\n');
 	
 			csv += '$50s,' + (document.getElementById('fifties').value + "," || '0,');
-      csv +=  (document.getElementById('fiftiesAmount').value + "," || '0,' + "\n");
-	      csv += '$100s,' + (document.getElementById('hundreds').value + "," || '0,');
-      csv +=  (document.getElementById('hundredsAmount').value + "," || '0,' + '\n');
+      csv +=  (document.getElementById('fiftiesAmount').textContent + "\n" || '0\n' );
+	      csv += '$100s,' + (document.getElementById('hundreds').textContent + "," || '0,');
+      csv +=  (document.getElementById('hundredsAmount').textContent + "\n" || '0\n' );
 	
 	
 			// Summary

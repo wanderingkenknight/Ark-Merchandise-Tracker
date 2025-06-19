@@ -103,24 +103,24 @@ td { text-align: center; border: solid 2px black
 <tr>
 <th>Title</th>
 <th>Type</th>
-<th class="small"># In</th>
-<th class="small">Out</th>
-<th class="small" >Comp</th>
-<th class="small" ># Sold</th>
-<th class="small" >Sale Price ($)</th>
-<th class="small" >Total ($)</th>
+<th  ># In</th>
+<th  >Out</th>
+<th   >Comp</th>
+<th   ># Sold</th>
+<th   >Sale Price ($)</th>
+<th   >Total ($)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><input oninput="calculateTotals()" type="text"></td>
 <td><input oninput="calculateTotals()" type="text"></td>
-<td class="small"><input oninput="calculateRow(this); calculateTotals()" type="number"></td>
+<td  ><input oninput="calculateRow(this); calculateTotals()" type="number"></td>
 <td><input oninput="calculateRow(this); calculateTotals()" type="number"></td>
 <td><input oninput="calculateRow(this); calculateTotals()" type="number"></td>
-<td><input class="calculated" readonly="" type="number"></td>
+<td><input   readonly="" type="number"></td>
 <td><input oninput="calculateRow(this); calculateTotals()" step="0.01" type="number"></td>
-<td><input class="calculated" readonly="" step="0.01" type="number"></td>
+<td><input   readonly="" step="0.01" type="number"></td>
 </tr>
 </tbody>
 </table>
@@ -369,9 +369,9 @@ td { text-align: center; border: solid 2px black
                 <td><input type="text" oninput="calculateTotals()"></td>
                 <td><input type="number" oninput="calculateRow(this); calculateTotals()"></td>                <td><input type="number" oninput="calculateRow(this); calculateTotals()"></td>
                 <td><input type="number" oninput="calculateRow(this); calculateTotals()"></td>
-                <td><input type="number" class="calculated" readonly></td>
+                <td><input type="number"   readonly></td>
                 <td><input type="number" step="0.01" oninput="calculateRow(this); calculateTotals()"></td>
-                <td><input type="number" step="0.01" class="calculated" readonly></td>
+                <td><input type="number" step="0.01"   readonly></td>
             `;
         }
 function roundDownToNearest(num, roundDown) {

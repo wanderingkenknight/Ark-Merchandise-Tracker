@@ -32,29 +32,33 @@ td { text-align: center; border: solid 2px black
   }
 
 /* Compact table columns for merchandise */
-.merchandise-table td:nth-child(2),
-.merchandise-table td:nth-child(3),
-.merchandise-table td:nth-child(4),
-.merchandise-table td:nth-child(5),
-.merchandise-table td:nth-child(6),
-.merchandise-table td:nth-child(7),
-.merchandise-table td:nth-child(8),
-.merchandise-table th:nth-child(2),
-.merchandise-table th:nth-child(3),
-.merchandise-table th:nth-child(4),
-.merchandise-table th:nth-child(5),
-.merchandise-table th:nth-child(6),
-.merchandise-table th:nth-child(7),
-.merchandise-table th:nth-child(8),
-#revenueSplit td:last-child
+ #merchandiseTable td:nth-child(2),
+ #merchandiseTable td:nth-child(3),
+ #merchandiseTable td:nth-child(4),
+ #merchandiseTable td:nth-child(5),
+ #merchandiseTable td:nth-child(6),
+ #merchandiseTable td:nth-child(7),
+ #merchandiseTable td:nth-child(8),
+ #merchandiseTable th:nth-child(2),
+ #merchandiseTable th:nth-child(3),
+ #merchandiseTable th:nth-child(4),
+ #merchandiseTable th:nth-child(5),
+ #merchandiseTable th:nth-child(6),
+ #merchandiseTable th:nth-child(7),
+ #merchandiseTable th:nth-child(8)
 
    {
     width: 90px;
     max-width: 90px;
     text-align: center;
-}
-
-
+    }
+		
+#revenueSplit td:last-child
+   {
+    width: 130px;
+    max-width: 130px;
+    text-align: center;
+    }
 		
 @media print {
   div#controls, div#controls * {
@@ -101,7 +105,7 @@ td { text-align: center; border: solid 2px black
 </div>
 
 <h2>Merchandise Sales</h2>
-<table class="merchandise-table" id="merchandiseTable" >
+<table id="merchandiseTable" id="merchandiseTable" >
 <thead>
 <tr>
 <th>Title</th>
@@ -209,7 +213,7 @@ td { text-align: center; border: solid 2px black
 </table>
 </div>
 </div>
-<div class="summary-section" style="float: left; margin-left: 30px; width:15%">
+<div id="summarySection" style="float: left; margin-left: 20px; width:15%">
 
 <h2>Cash Summary</h2>
 	<table>
@@ -235,7 +239,7 @@ td { text-align: center; border: solid 2px black
 </table>
 </div>
 
-<div style="float: left; margin-left: 20px; max-width: 15%">
+<div style="float: left; margin-left: 20px; max-width: 10%">
 <h2>Revenue Split</h2>
 	<table id="revenueSplit">
 <tr>
@@ -245,7 +249,7 @@ td { text-align: center; border: solid 2px black
 </tr>
 
 	<tr>
-<td id="arkCutText">% Due to Ark<br>(rounded down):</td>
+<td id="arkCutText">% Due to The Ark (rounded down):</td>
 <td id="arkShare">$0.00</td>
 </tr>
 <tr>
@@ -349,7 +353,7 @@ td { text-align: center; border: solid 2px black
     document.getElementById('lessCreditsChecks').textContent = '$' + lessCreditsChecks.toFixed(2);
     document.getElementById('netCash').textContent = '$' + netCash.toFixed(2);
 				
-		document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded fown)";
+		document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded down):";
 				
 		 let temp = 100 - (arkCut * 100);	document.getElementById('petformerCutText').textContent = "~" + temp   + "% Due Artist:";					
  	 document.getElementById('arkShare').textContent = '$' + arkShare.toFixed(2);

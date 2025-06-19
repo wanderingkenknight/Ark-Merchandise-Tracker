@@ -45,7 +45,8 @@ td { text-align: center; border: solid 2px black
 .merchandise-table th:nth-child(5),
 .merchandise-table th:nth-child(6),
 .merchandise-table th:nth-child(7),
-.merchandise-table th:nth-child(8)
+.merchandise-table th:nth-child(8),
+#revenueSplit td:last-child
 
    {
     width: 90px;
@@ -56,8 +57,7 @@ td { text-align: center; border: solid 2px black
 
 		
 @media print {
-	font-size: 10px;
-  div#controls, button {
+  div#controls, div#controls * {
     display: none !important;
  	}
   td { text-align: center }
@@ -69,12 +69,15 @@ td { text-align: center; border: solid 2px black
         <div class="report-content">
 <div class="header" style="width: 100%">
         <table style="width: 100%" id="headertable">
-                <tr>
-                <th>
-        <img src="IMG_3040.jpeg" alt="Ark logo">
-                </th><th>
-	<h2 style="font-size:64px">Ark Merchandise<br> Disclosure</h2>
-        </th></tr></table>
+          <tr>
+             <th>
+               <img src="IMG_3040.jpeg" alt="Ark logo">
+            </th><th>
+	            <p style="font-size:64px">Ark Merchandise<br> Disclosure
+							</p>
+          </th>
+       </tr>
+    </table>
 </div>
 
 <div class="basic-info" style="padding-top: 10px">
@@ -125,14 +128,14 @@ td { text-align: center; border: solid 2px black
 </tbody>
 </table>
 
-
-<div id="controls" style="padding-top:40px; padding-bottom:20px">
+<div style="padding-top:40px; padding-bottom:20px">
+<div id="controls" >
 <button style="font-size: 40px"  onclick="addMerchRow()">+ Add Merchandise Item
 </button>
 <br><br>
 <button  style="font-size: 40px" onclick="window.print()">🖨️ Print Report</button>
 <button style="margin-left:40px; font-size: 40px"  onclick="exportToCSV()">📊 Export to CSV</button>
-</div>
+</div></div>
 
 <div id="cashtable" style="width: 50%; ">
 	<div style="float: left">
@@ -162,7 +165,7 @@ td { text-align: center; border: solid 2px black
 </div>
 <div style="float: left">
 <h2>Currency </h2>
-<table id=“cashBreakdown">
+<table id= "cashBreakdown">
 	<tr>
 		<td>Type</td>
 		<td>Number</td>
@@ -206,7 +209,7 @@ td { text-align: center; border: solid 2px black
 </table>
 </div>
 </div>
-<div class="summary-section" style="float: left; margin-left: 30px; width:20%">
+<div class="summary-section" style="float: left; margin-left: 30px; width:15%">
 
 <h2>Cash Summary</h2>
 	<table>
@@ -232,9 +235,9 @@ td { text-align: center; border: solid 2px black
 </table>
 </div>
 
-<div style="float: left; margin-left: 20px; width: 20%">
+<div style="float: left; margin-left: 20px; max-width: 15%">
 <h2>Revenue Split</h2>
-	<table>
+	<table id="revenueSplit">
 <tr>
 			
 <td>Merchandise Total:</td>
@@ -272,18 +275,21 @@ td { text-align: center; border: solid 2px black
 </div>
 </div>
 </div>
-<script type="text/javascript">
-        function calculateRow(input) {
-            const row = input.closest('tr');
-            const cells = row.querySelectorAll('input');
-            const numIn = parseFloat(cells[2].value) || 0;
-            const numOut = parseFloat(cells[3].value) || cells[2].calue
-					  const numComp = parseFloat(cells[4].value) || 0;	
-            const salePrice = parseFloat(cells[6].value) || 0;
+<script >
+  function calculateRow(input) {
+       const row = input.closest('tr');
+       const cells = row.querySelectorAll('input');
+       const numIn = parseFloat(cells[2].value) || 0;
+						
+	     const numOut = parseFloat(cells[3].value) || 0;					
+								
+	     const numComp = parseFloat(cells[4].value) || 0;	
+       
+			 const salePrice = parseFloat(cells[6].value) || 0;
             
-            // Calculate "# Sold" (In - Out - Comp)
-            const numSold = numIn - numOut - numComp;
-            cells[5].value = numSold >= 0 ? numSold : 0;
+     // Calculate "# Sold" (In - Out - Comp)
+       const numSold = numIn - numOut - numComp;
+       cells[5].value = numSold >= 0 ? numSold : 0;
             
             // Calculate total for this item
             const actualSold = parseFloat(cells[5].value) || 0;

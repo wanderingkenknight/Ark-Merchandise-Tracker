@@ -87,7 +87,8 @@ td { text-align: center; border: solid 2px black
 <div class="basic-info" style="padding-top: 10px">
 
 <label for="artist">Artist</label>
-<input style="border-bottom: solid 1px black"  id="artist" name="artist" type="text">
+<input style="border-bottom: solid 1px black"  id="artist" name="artist" type="text"
+oninput="ChangeTitle(this)">
 
 <label for="date">Date</label>
 <input style="border-bottom: solid 1px black" id="date" name="date" type="date">
@@ -137,7 +138,7 @@ td { text-align: center; border: solid 2px black
 <button style="font-size: 40px"  onclick="addMerchRow()">+ Add Merchandise Item
 </button>
 <br><br>
-<button  style="font-size: 40px" onclick="window.print()">🖨️ Print Report</button>
+<button  style="font-size: 40px" onclick="PrintReport()">🖨️ Print Report</button>
 <button style="margin-left:40px; font-size: 40px"  onclick="exportToCSV()">📊 Export to CSV</button>
 </div></div>
 
@@ -162,7 +163,7 @@ td { text-align: center; border: solid 2px black
 </tr>
 <tr>
 <td><strong>Checks</strong></td>
-<td style="max-width: 90px"><input style="max-width: 90px"  id="checks" oninput="calculateTotals()" step="0.01" type="number"></td>
+<td style="max-width: 90px"><input style="max-width: 90px"  id="checks" oninput="calculateTotals()" step="0.01" type="number">0</td>
 </tr>
 </tbody>
 </table>
@@ -280,6 +281,9 @@ td { text-align: center; border: solid 2px black
 </div>
 </div>
 <script >
+	function ChangeTitle(title) {
+		  document.title = title + " - The Ark Metch Tracker";
+	}
   function calculateRow(input) {
        const row = input.closest('tr');
        const cells = row.querySelectorAll('input');
@@ -465,7 +469,17 @@ function exportToCSV() {
         
  // Initialize calculations
    calculateTotals();
-</script>
+
+ function PrintReport() {
+	 if ( document.getElementById('creditDebit').value.length == 0 || document.getElementById('cash').value.length == 0 ) {
+		 if ( confirm("It is best to supply Cash, Chrcks, snd Credit/Drbit value. Print Anyway?") ) {
+			   window.print();
+		 }
+	 } else
+	  { window.print()}
+	 
+ }
+ </script>
 
 </body>
 </html>

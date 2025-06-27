@@ -294,6 +294,14 @@
 		</div>
 	</div>
 	<script>
+		function NaNFixer(i) {
+			// if the tr t of thr passed objecg includds "isnan" it is trmoved. 
+			if (i) {
+
+		  	if ( isNaN(i.value) || i.textContent.includes("NaN")) i.textContent = "$";
+			}
+		}
+
 		function ChangeTitle(title) {
 			document.title = title + " - The Ark Metch Tracker";
 		}
@@ -378,12 +386,15 @@
 			document.getElementById('performerShare').textContent = '$' + performerShare.toFixed(2);
 			document.getElementById('lessCredit').textContent = '$' + creditDebit.toFixed(2);
 			document.getElementById('cashDuePerformer').textContent = '$' + cashDuePerformer.toFixed(2);
-			document.getElementById("onesAmount").textContent = "$" + document.getElementById('ones').value
-			document.getElementById("fivesAmount").textContent = "$" + (parseFloat(document.getElementById('fives').value) * 5).toFixed(0);
-			document.getElementById("tensAmount").textContent = "$" + (parseFloat(document.getElementById('tens').value) * 10).toFixed(0);
-			document.getElementById("twentiesAmount").textContent = "$" + (parseFloat(document.getElementById('twenties').value) * 20).toFixed(0);
-			document.getElementById("fiftiesAmount").textContent = "$" + (parseFloat(document.getElementById('fifties').value) * 50).toFixed(0);
-			document.getElementById("hundredsAmount").textContent = "$" + (parseFloat(document.getElementById('hundreds').value) * 100).toFixed(0);
+			document.getElementById("onesAmount").textContent = "$" + (parseFloat(document.getElementById('ones').value || 0) ).toFixed(0);			
+			document.getElementById("fivesAmount").textContent = "$" + (parseFloat(document.getElementById('fives').value || 0) * 5).toFixed(0);			
+			document.getElementById("tensAmount").textContent = "$" + (parseFloat(document.getElementById('tens').value || 0) * 10).toFixed(0);			
+
+			document.getElementById("twentiesAmount").textContent = "$" + (parseFloat(document.getElementById('twenties').value || 0) * 20).toFixed(0);			
+
+			document.getElementById("fiftiesAmount").textContent = "$" + (parseFloat(document.getElementById('fifties').value || 0) * 50).toFixed(0);			
+
+			document.getElementById("hundredsAmount").textContent = "$" + (parseFloat(document.getElementById('hundreds').value || 0) * 100).toFixed(0);			
 
 		}
 

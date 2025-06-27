@@ -1,382 +1,396 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<title>Ark Merchandise Disclosure Tracker</title>
-  
-<style>
-  button {
-		border: solid 9px red;
-		border-radius:6px;
-		font-size: 30px;
-		padding:12px;
-    background: transparent;
-}
+	<meta charset="utf-8">
+	<title>Ark Merchandise Disclosure Tracker</title>
 
-  input, input[readonly] {
-		font-size: 20px;
-		border: none;
-    background: transparent;
-  }	
+	<style>
+		button {
+			border: solid 9px red;
+			border-radius: 6px;
+			font-size: 30px;
+			padding: 12px;
+			background: transparent;
+		}
 
-  body {
-    background: white;
-  }
-td { text-align: center; border: solid 2px black
-}
-#headertable th { border: none ; text-align: center }
+		input,
+		input[readonly] {
+			font-size: 20px;
+			border: none;
+			background: transparent;
+		}
 
-  .container {
-    background: white;
-  }
+		body {
+			background: white;
+		}
 
-/* Compact table columns for merchandise */
- #merchandiseTable td:nth-child(2),
- #merchandiseTable td:nth-child(3),
- #merchandiseTable td:nth-child(4),
- #merchandiseTable td:nth-child(5),
- #merchandiseTable td:nth-child(6),
- #merchandiseTable td:nth-child(7),
- #merchandiseTable td:nth-child(8),
- #merchandiseTable th:nth-child(2),
- #merchandiseTable th:nth-child(3),
- #merchandiseTable th:nth-child(4),
- #merchandiseTable th:nth-child(5),
- #merchandiseTable th:nth-child(6),
- #merchandiseTable th:nth-child(7),
- #merchandiseTable th:nth-child(8)
+		td {
+			text-align: center;
+			border: solid 2px black
+		}
 
-   {
-    width: 90px;
-    max-width: 90px;
-    text-align: center;
-    }
-		
-#revenueSplit td:last-child
-   {
-    width: 130px;
-    max-width: 130px;
-    text-align: center;
-    }
-		
-@media print {
-  div#controls, div#controls * {
-    display: none !important;
- 	}
-  td { text-align: center }
-}
-</style>
+		#headertable th {
+			border: none;
+			text-align: center
+		}
+
+		.container {
+			background: white;
+		}
+
+		/* Compact table columns for merchandise */
+		#merchandiseTable td:nth-child(2),
+		#merchandiseTable td:nth-child(3),
+		#merchandiseTable td:nth-child(4),
+		#merchandiseTable td:nth-child(5),
+		#merchandiseTable td:nth-child(6),
+		#merchandiseTable td:nth-child(7),
+		#merchandiseTable td:nth-child(8),
+		#merchandiseTable th:nth-child(2),
+		#merchandiseTable th:nth-child(3),
+		#merchandiseTable th:nth-child(4),
+		#merchandiseTable th:nth-child(5),
+		#merchandiseTable th:nth-child(6),
+		#merchandiseTable th:nth-child(7),
+		#merchandiseTable th:nth-child(8) {
+			width: 90px;
+			max-width: 90px;
+			text-align: center;
+		}
+
+		#revenueSplit td:last-child {
+			width: 130px;
+			max-width: 130px;
+			text-align: center;
+		}
+
+		@media print {
+
+			div#controls,
+			div#controls * {
+				display: none !important;
+			}
+
+			td {
+				text-align: center
+			}
+		}
+	</style>
 </head>
+
 <body>
-<div class="container">
-        <div class="report-content">
-<div class="header" style="width: 100%">
-        <table style="width: 100%" id="headertable">
-          <tr>
-             <th>
-               <img src="IMG_3040.jpeg" alt="Ark logo">
-            </th><th>
-	            <p style="font-size:64px">Ark Merchandise<br> Disclosure
+	<div class="container">
+		<div class="report-content">
+			<div class="header" style="width: 100%">
+				<table style="width: 100%" id="headertable">
+					<tr>
+						<th>
+							<img src="IMG_3040.jpeg" alt="Ark logo">
+						</th>
+						<th>
+							<p style="font-size:64px">Ark Merchandise<br> Disclosure
 							</p>
-          </th>
-       </tr>
-    </table>
-</div>
+						</th>
+					</tr>
+				</table>
+			</div>
 
-<div class="basic-info" style="padding-top: 10px">
+			<div class="basic-info" style="padding-top: 10px">
 
-<label for="artist">Artist</label>
-<input style="border-bottom: solid 1px black"  id="artist" name="artist" type="text"
-oninput="ChangeTitle(this)">
+				<label for="artist">Artist</label>
+				<input style="border-bottom: solid 1px black" id="artist" name="artist" type="text" oninput="ChangeTitle(this.value)">
 
-<label for="date">Date</label>
-<input style="border-bottom: solid 1px black" id="date" name="date" type="date">
+				<label for="date">Date</label>
+				<input style="border-bottom: solid 1px black" id="date" name="date" type="date">
 
-<br><br>
-<label for="startingCash">Ark Starting Cash ($)</label>
-<input style="width: 60px;border-bottom: solid 1px black" id="startingCash" name="startingCash" oninput="calculateTotals()" step="0.01" type="number" value="100">
-<label for="startingCashArtist">Artist Starting Cash ($)</label>
-<input style="width: 60px;border-bottom: solid 1px black" id="startingCashArtist" name="startingCashArtist" oninput="calculateTotals()" step="0.01" type="number" value="0">
-<br>
-<label for="roundDown">Round Down ($)</label>
-<input style="width: 60px;border-bottom: solid 1px black"  id="roundDown" name="roundDown" oninput="calculateTotals()" step="1" type="number" value="5">
-<label for="arkCut">Ark Cut (%)</label>
-<input style="width: 60px;border-bottom: solid 1px black"  id="arkCut" name="arkCut" oninput="calculateTotals()" step="1" type="number" value="10">
-</div>
+				<br><br>
+				<label for="startingCash">Ark Starting Cash ($)</label>
+				<input style="width: 60px;border-bottom: solid 1px black" id="startingCash" name="startingCash" oninput="calculateTotals()" step="0.01" type="number" value="100">
+				<label for="startingCashArtist">Artist Starting Cash ($)</label>
+				<input style="width: 60px;border-bottom: solid 1px black" id="startingCashArtist" name="startingCashArtist" oninput="calculateTotals()" step="0.01" type="number" value="0">
+				<br>
+				<label for="roundDown">Round Down ($)</label>
+				<input style="width: 60px;border-bottom: solid 1px black" id="roundDown" name="roundDown" oninput="calculateTotals()" step="1" type="number" value="5">
+				<label for="arkCut">Ark Cut (%)</label>
+				<input style="width: 60px;border-bottom: solid 1px black" id="arkCut" name="arkCut" oninput="calculateTotals()" step="1" type="number" value="10">
+			</div>
 
-<h2>Merchandise Sales</h2>
-<table id="merchandiseTable" id="merchandiseTable" >
-<thead>
-<tr>
-<th>Title</th>
-<th>Type</th>
-<th  ># In</th>
-<th  >Out</th>
-<th   >Comp</th>
-<th   ># Sold</th>
-<th   >Sale Price ($)</th>
-<th   >Total ($)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><input oninput="calculateTotals()" type="text"></td>
-<td><input oninput="calculateTotals()" type="text"></td>
-<td  ><input oninput="calculateRow(this); calculateTotals()" type="number"></td>
-<td><input oninput="calculateRow(this); calculateTotals()" type="number"></td>
-<td><input oninput="calculateRow(this); calculateTotals()" type="number"></td>
-<td><input   readonly="" type="number"></td>
-<td><input oninput="calculateRow(this); calculateTotals()" step="0.01" type="number"></td>
-<td><input   readonly="" step="0.01" type="number"></td>
-</tr>
-</tbody>
-</table>
+			<h2>Merchandise Sales</h2>
+			<table id="merchandiseTable" id="merchandiseTable">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Type</th>
+						<th># In</th>
+						<th>Out</th>
+						<th>Comp</th>
+						<th># Sold</th>
+						<th>Sale Price ($)</th>
+						<th>Total ($)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input oninput="calculateTotals()" type="text"></td>
+						<td><input oninput="calculateTotals()" type="text"></td>
+						<td><input oninput="calculateRow(this); calculateTotals()" type="number"></td>
+						<td><input oninput="calculateRow(this); calculateTotals()" type="number"></td>
+						<td><input oninput="calculateRow(this); calculateTotals()" type="number"></td>
+						<td><input readonly="" type="number"></td>
+						<td><input oninput="calculateRow(this); calculateTotals()" step="0.01" type="number"></td>
+						<td><input readonly="" step="0.01" type="number"></td>
+					</tr>
+				</tbody>
+			</table>
 
-<div style="padding-top:40px; padding-bottom:20px">
-<div id="controls" >
-<button style="font-size: 40px"  onclick="addMerchRow()">+ Add Merchandise Item
-</button>
-<br><br>
-<button  style="font-size: 40px" onclick="PrintReport()">🖨️ Print Report</button>
-<button style="margin-left:40px; font-size: 40px"  onclick="exportToCSV()">📊 Export to CSV</button>
-</div></div>
+			<div style="padding-top:40px; padding-bottom:20px">
+				<div id="controls">
+					<button style="font-size: 40px" onclick="addMerchRow()">+ Add Merchandise Item
+					</button>
+					<br><br>
+					<button style="font-size: 40px" onclick="PrintReport()">🖨️ Print Report</button>
+					<button style="margin-left:40px; font-size: 40px" onclick="exportToCSV()">📊 Export to CSV</button>
+				</div>
+			</div>
 
-<div id="cashtable" style="width: 50%; ">
-	<div style="float: left">
-<h2>Breakdown</h2>
-<table style="float: left" class="cash-table">
-<thead>
-<tr>
-<th style="border: solid 1px black" >Type</th>
-<th style="border: solid 1px black; max-width: 90px">Amount ($)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Credit/Debit</strong></td>
-<td><input  style="max-width: 80px" id="creditDebit" oninput="calculateTotals()" step="0.01" type="number"></td>
-</tr>
-<tr>
-<td><strong>Cash</strong></td>
-<td style="max-width: 90px"><input style="max-width: 90px" id="cash" oninput="calculateTotals()" step="0.01" type="number"></td>
-</tr>
-<tr>
-<td><strong>Checks</strong></td>
-<td style="max-width: 90px"><input style="max-width: 90px"  id="checks" oninput="calculateTotals()" step="0.01" value="0"  type="number"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style="float: left">
-<h2>Currency </h2>
-<table id= "cashBreakdown">
-	<tr>
-		<td>Type</td>
-		<td>Number</td>
-		<td>Amount</td>
-		<tr>
-	<td><strong>Change</strong></td>
-	<td style="background-color: black"></td>
-<td ><input style="max-width: 60px"  id="changeAmount" oninput="calculateTotals()" step="0.01" type="number"></td>
+			<div id="cashtable" style="width: 50%; ">
+				<div style="float: left">
+					<h2>Breakdown</h2>
+					<table style="float: left" class="cash-table">
+						<thead>
+							<tr>
+								<th style="border: solid 1px black">Type</th>
+								<th style="border: solid 1px black; max-width: 90px">Amount ($)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><strong>Credit/Debit</strong></td>
+								<td><input style="max-width: 80px" id="creditDebit" oninput="calculateTotals()" step="0.01" type="number"></td>
+							</tr>
+							<tr>
+								<td><strong>Cash</strong></td>
+								<td style="max-width: 90px"><input style="max-width: 90px" id="cash" oninput="calculateTotals()" step="0.01" type="number"></td>
+							</tr>
+							<tr>
+								<td><strong>Checks</strong></td>
+								<td style="max-width: 90px"><input style="max-width: 90px" id="checks" oninput="calculateTotals()" step="0.01" value="0" type="number"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div style="float: left">
+					<h2>Currency </h2>
+					<table id="cashBreakdown">
+						<tr>
+							<td>Type</td>
+							<td>Number</td>
+							<td>Amount</td>
+						<tr>
+							<td><strong>Change</strong></td>
+							<td style="background-color: black"></td>
+							<td><input style="max-width: 60px" id="changeAmount" oninput="calculateTotals()" step="0.01" type="number"></td>
 
-</tr>
-<tr>
-<td><strong>$1s</strong></td>
-<td><input style="max-width: 60px" id="ones" oninput="calculateTotals()" step="1" type="number"></td>
-<td id="onesAmount"></td>
-</tr>
-<tr>
-<td><strong>$5s</strong></td>
-<td><input style="max-width: 60px" id="fives" oninput="calculateTotals()" step="1" type="number"></td>
-<td id="fivesAmount"></td>
-</tr>
-<tr>
-<td><strong>$10s</strong></td>
-<td><input style="max-width: 60px" id="tens" oninput="calculateTotals()" step="1" type="number"></td>
-<td id="tensAmount"></td>
-</tr>
-<tr>
-<td><strong>$20s</strong></td>
-<td><input style="max-width: 60px" id="twenties" oninput="calculateTotals()" step="1" type="number"></td>
-<td id="twentiesAmount"></td>
-</tr>
-<tr>
-<td><strong>$50s</strong></td>
-<td><input style="max-width: 60px" id="fifties" oninput="calculateTotals()" step="1" type="number"></td>
-<td id="fiftiesAmount"></td>
-</tr>
-<tr>
-<td><strong>$100s</strong></td>
-<td><input style="max-width: 60px" id="hundreds" oninput="calculateTotals()" step="1" type="number"></td>
-<td id="hundredsAmount"></td>
-</tr>
-</table>
-</div>
-</div>
-<div id="summarySection" style="float: left; margin-left: 20px; width:15%">
+						</tr>
+						<tr>
+							<td><strong>$1s</strong></td>
+							<td><input style="max-width: 60px" id="ones" oninput="calculateTotals()" step="1" type="number"></td>
+							<td id="onesAmount"></td>
+						</tr>
+						<tr>
+							<td><strong>$5s</strong></td>
+							<td><input style="max-width: 60px" id="fives" oninput="calculateTotals()" step="1" type="number"></td>
+							<td id="fivesAmount"></td>
+						</tr>
+						<tr>
+							<td><strong>$10s</strong></td>
+							<td><input style="max-width: 60px" id="tens" oninput="calculateTotals()" step="1" type="number"></td>
+							<td id="tensAmount"></td>
+						</tr>
+						<tr>
+							<td><strong>$20s</strong></td>
+							<td><input style="max-width: 60px" id="twenties" oninput="calculateTotals()" step="1" type="number"></td>
+							<td id="twentiesAmount"></td>
+						</tr>
+						<tr>
+							<td><strong>$50s</strong></td>
+							<td><input style="max-width: 60px" id="fifties" oninput="calculateTotals()" step="1" type="number"></td>
+							<td id="fiftiesAmount"></td>
+						</tr>
+						<tr>
+							<td><strong>$100s</strong></td>
+							<td><input style="max-width: 60px" id="hundreds" oninput="calculateTotals()" step="1" type="number"></td>
+							<td id="hundredsAmount"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="summarySection" style="float: left; margin-left: 20px; width:15%">
 
-<h2>Cash Summary</h2>
-	<table>
-		<tr>
-<td>Money Total:</td>
-<td id="moneyTotal">$0.00</td>
-</tr>
+				<h2>Cash Summary</h2>
+				<table>
+					<tr>
+						<td>Money Total:</td>
+						<td id="moneyTotal">$0.00</td>
+					</tr>
 
-	<tr>
-<td>Less Starting Cash:</td>
-<td id="lessStartingCash">$0.00</td>
-</tr>
-	<tr>
-<td>Less Credit & Checks:</td>
-<td id="lessCreditsChecks">$0.00</td>
-</tr>
+					<tr>
+						<td>Less Starting Cash:</td>
+						<td id="lessStartingCash">$0.00</td>
+					</tr>
+					<tr>
+						<td>Less Credit & Checks:</td>
+						<td id="lessCreditsChecks">$0.00</td>
+					</tr>
 
-	<tr>
-<td>Net Cash:</td>
-<td id="netCash">$0.00</td>
-</tr>
+					<tr>
+						<td>Net Cash:</td>
+						<td id="netCash">$0.00</td>
+					</tr>
 
-</table>
-</div>
+				</table>
+			</div>
 
-<div style="float: left; margin-left: 20px; max-width: 10%">
-<h2>Revenue Split</h2>
-	<table id="revenueSplit">
-<tr>
-			
-<td>Merchandise Total:</td>
-<td id="merchTotal">$0.00</td>
-</tr>
+			<div style="float: left; margin-left: 20px; max-width: 10%">
+				<h2>Revenue Split</h2>
+				<table id="revenueSplit">
+					<tr>
 
-	<tr>
-<td id="arkCutText">% Due to The Ark (rounded down):</td>
-<td id="arkShare">$0.00</td>
-</tr>
-<tr>
-		
-<td id="petformerCutText">90% Performer Total:</td>
-<td id="performerShare">$0.00</td>
-</tr>
-<tr>
-<td>Less Credit/Debit:</td>
-<td id="lessCredit">$0.00</td>
-</tr>
-<tr>
-<td>Cash Due to Performer:</td>
-<td id="cashDuePerformer">$0.00</td>
-</tr>
-<tr>
-	<td>
-<label for="seller">Seller</label>
-<input id="seller" style="padding-top: 10px"  name="seller" type="text">
-</td>
-<td>
-<label for="artistSig">Artist</label>
-<input id="artistSig" style="padding-top:10px" name="artistSig" type="text">
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<script >
-	function ChangeTitle(title) {
-		  document.title = title + " - The Ark Metch Tracker";
-	}
-  function calculateRow(input) {
-       const row = input.closest('tr');
-       const cells = row.querySelectorAll('input');
-       const numIn = parseFloat(cells[2].value) || 0;
-						
+						<td>Merchandise Total:</td>
+						<td id="merchTotal">$0.00</td>
+					</tr>
 
-			 let numOut = 0;
-			 if ( cells[3].value.length > 0 ) 
-				  {  
-				    numOut = parseFloat(cells[3].value )
-					} else { 
-					   numOut = numIn;
-				 }
+					<tr>
+						<td id="arkCutText">% Due to The Ark (rounded down):</td>
+						<td id="arkShare">$0.00</td>
+					</tr>
+					<tr>
 
-		 const numComp = parseFloat(cells[4].value) || 0;	
-       
-			 const salePrice = parseFloat(cells[6].value) || 0;
-            
-     // Calculate "# Sold" (In - Out - Comp)
-       const numSold = numIn - numOut - numComp;
-       cells[5].value = numSold >= 0 ? numSold : 0;
-            
-            // Calculate total for this item
-            const actualSold = parseFloat(cells[5].value) || 0;
-            cells[7].value = (actualSold * salePrice).toFixed(2);
-        }
-        
-        function calculateTotals() {
-					
-					// determined Ark cut 
-					
-    let arkCut = parseFloat(document.getElementById('arkCut').value) || 0;
-    arkCut = arkCut / 100;
-				
-    // Calculate merchandise total
-      
+						<td id="petformerCutText">90% Performer Total:</td>
+						<td id="performerShare">$0.00</td>
+					</tr>
+					<tr>
+						<td>Less Credit/Debit:</td>
+						<td id="lessCredit">$0.00</td>
+					</tr>
+					<tr>
+						<td>Cash Due to Performer:</td>
+						<td id="cashDuePerformer">$0.00</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="seller">Seller</label>
+							<input id="seller" style="padding-top: 10px" name="seller" type="text">
+						</td>
+						<td>
+							<label for="artistSig">Artist</label>
+							<input id="artistSig" style="padding-top:10px" name="artistSig" type="text">
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script>
+		function ChangeTitle(title) {
+			document.title = title + " - The Ark Metch Tracker";
+		}
+
+		function calculateRow(input) {
+			const row = input.closest('tr');
+			const cells = row.querySelectorAll('input');
+			const numIn = parseFloat(cells[2].value) || 0;
+
+
+			let numOut = 0;
+			if (cells[3].value.length > 0) {
+				numOut = parseFloat(cells[3].value)
+			} else {
+				numOut = numIn;
+			}
+
+			const numComp = parseFloat(cells[4].value) || 0;
+
+			const salePrice = parseFloat(cells[6].value) || 0;
+
+			// Calculate "# Sold" (In - Out - Comp)
+			const numSold = numIn - numOut - numComp;
+			cells[5].value = numSold >= 0 ? numSold : 0;
+
+			// Calculate total for this item
+			const actualSold = parseFloat(cells[5].value) || 0;
+			cells[7].value = (actualSold * salePrice).toFixed(2);
+		}
+
+		function calculateTotals() {
+
+			// determined Ark cut 
+
+			let arkCut = parseFloat(document.getElementById('arkCut').value) || 0;
+			arkCut = arkCut / 100;
+
+			// Calculate merchandise total
+
 			let merchTotal = 0;
-      const merchRows = document.querySelectorAll('#merchandiseTable tbody tr');
-      merchRows.forEach(row => {
-             const totalInput = row.querySelectorAll('input')[7];
-             if (totalInput) {
-                    merchTotal += parseFloat(totalInput.value) || 0;
-                }
-            });
-            
-       const roundDown = (document.getElementById('roundDown').value) || 1;
+			const merchRows = document.querySelectorAll('#merchandiseTable tbody tr');
+			merchRows.forEach(row => {
+				const totalInput = row.querySelectorAll('input')[7];
+				if (totalInput) {
+					merchTotal += parseFloat(totalInput.value) || 0;
+				}
+			});
 
-						
-    // Calculate cash total
-       const creditDebit = parseFloat(document.getElementById('creditDebit').value) || 0;
-       const checks = parseFloat(document.getElementById('checks').value) || 0;
+			const roundDown = (document.getElementById('roundDown').value) || 1;
 
-       const startingCash = parseFloat(document.getElementById('startingCash').value) || 0;
-        
-		const startingCashArtist = parseFloat(document.getElementById('startingCashArtist').value) || 0;
-									
-    const moneyTotal = startingCash + startingCashArtist + merchTotal;
-				
-	  const lessCreditsChecks = creditDebit + checks;
-		const netCash = moneyTotal - lessCreditsChecks -  startingCash - startingCashArtist;
 
-   // Calculate splits
-      const arkShare = roundDownToNearest(merchTotal * arkCut, roundDown);
-      const performerShare = (merchTotal - arkShare);
-      const cashDuePerformer = performerShare - creditDebit;
-            
-    // Update display
-    document.getElementById('merchTotal').textContent = '$' + merchTotal.toFixed(2);
-    document.getElementById('moneyTotal').textContent = '$' + moneyTotal.toFixed(2);
-    document.getElementById('lessStartingCash').textContent = '$' + ( startingCash + startingCashArtist).toFixed(2);
-    document.getElementById('lessCreditsChecks').textContent = '$' + lessCreditsChecks.toFixed(2);
-    document.getElementById('netCash').textContent = '$' + netCash.toFixed(2);
-				
-		document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded down):";
-				
-		 let temp = 100 - (arkCut * 100);	document.getElementById('petformerCutText').textContent = "~" + temp   + "% Due Artist:";					
- 	 document.getElementById('arkShare').textContent = '$' + arkShare.toFixed(2);
-   document.getElementById('performerShare').textContent = '$' + performerShare.toFixed(2);
-   document.getElementById('lessCredit').textContent = '$' + creditDebit.toFixed(2);
-   document.getElementById('cashDuePerformer').textContent = '$' + cashDuePerformer.toFixed(2);
-	 document.getElementById("onesAmount").textContent = "$" + document.getElementById('ones').value
-   document.getElementById("fivesAmount").textContent = "$" + ( parseFloat(document.getElementById('fives').value) * 5).toFixed(0);
-   document.getElementById("tensAmount").textContent = "$" + ( parseFloat(document.getElementById('tens').value) * 10).toFixed(0);
-   document.getElementById("twentiesAmount").textContent = "$" + ( parseFloat(document.getElementById('twenties').value) * 20).toFixed(0);	
-	 document.getElementById("fiftiesAmount").textContent = "$" + ( parseFloat(document.getElementById('fifties').value) * 50).toFixed(0);	
-   document.getElementById("hundredsAmount").textContent = "$" + ( parseFloat(document.getElementById('hundreds').value) * 100).toFixed(0);	
-		
-}
-        
-function addMerchRow() {
-   const tbody = document.querySelector('#merchandiseTable tbody');
-        const newRow = tbody.insertRow();
-   newRow.innerHTML = `
+			// Calculate cash total
+			const creditDebit = parseFloat(document.getElementById('creditDebit').value) || 0;
+			const checks = parseFloat(document.getElementById('checks').value) || 0;
+
+			const startingCash = parseFloat(document.getElementById('startingCash').value) || 0;
+
+			const startingCashArtist = parseFloat(document.getElementById('startingCashArtist').value) || 0;
+
+			const moneyTotal = startingCash + startingCashArtist + merchTotal;
+
+			const lessCreditsChecks = creditDebit + checks;
+			const netCash = moneyTotal - lessCreditsChecks - startingCash - startingCashArtist;
+
+			// Calculate splits
+			const arkShare = roundDownToNearest(merchTotal * arkCut, roundDown);
+			const performerShare = (merchTotal - arkShare);
+			const cashDuePerformer = performerShare - creditDebit;
+
+			// Update display
+			document.getElementById('merchTotal').textContent = '$' + merchTotal.toFixed(2);
+			document.getElementById('moneyTotal').textContent = '$' + moneyTotal.toFixed(2);
+			document.getElementById('lessStartingCash').textContent = '$' + (startingCash + startingCashArtist).toFixed(2);
+			document.getElementById('lessCreditsChecks').textContent = '$' + lessCreditsChecks.toFixed(2);
+			document.getElementById('netCash').textContent = '$' + netCash.toFixed(2);
+
+			document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded down):";
+
+			let temp = 100 - (arkCut * 100);
+			document.getElementById('petformerCutText').textContent = "~" + temp + "% Due Artist:";
+			document.getElementById('arkShare').textContent = '$' + arkShare.toFixed(2);
+			document.getElementById('performerShare').textContent = '$' + performerShare.toFixed(2);
+			document.getElementById('lessCredit').textContent = '$' + creditDebit.toFixed(2);
+			document.getElementById('cashDuePerformer').textContent = '$' + cashDuePerformer.toFixed(2);
+			document.getElementById("onesAmount").textContent = "$" + document.getElementById('ones').value
+			document.getElementById("fivesAmount").textContent = "$" + (parseFloat(document.getElementById('fives').value) * 5).toFixed(0);
+			document.getElementById("tensAmount").textContent = "$" + (parseFloat(document.getElementById('tens').value) * 10).toFixed(0);
+			document.getElementById("twentiesAmount").textContent = "$" + (parseFloat(document.getElementById('twenties').value) * 20).toFixed(0);
+			document.getElementById("fiftiesAmount").textContent = "$" + (parseFloat(document.getElementById('fifties').value) * 50).toFixed(0);
+			document.getElementById("hundredsAmount").textContent = "$" + (parseFloat(document.getElementById('hundreds').value) * 100).toFixed(0);
+
+		}
+
+		function addMerchRow() {
+			const tbody = document.querySelector('#merchandiseTable tbody');
+			const newRow = tbody.insertRow();
+			newRow.innerHTML = `
       <td><input type="text" oninput="calculateTotals()"></td>
            <td><input type="text" oninput="calculateTotals()"></td>
                 <td><input type="number" oninput="calculateRow(this); calculateTotals()"></td>                <td><input type="number" oninput="calculateRow(this); calculateTotals()"></td>
@@ -385,101 +399,101 @@ function addMerchRow() {
                 <td><input type="number" step="0.01" oninput="calculateRow(this); calculateTotals()"></td>
                 <td><input type="number" step="0.01"   readonly></td>
             `;
-}
-function roundDownToNearest(num, roundDown) {
-  return Math.floor(num / roundDown) * roundDown;
-}     
+		}
 
-  
-function exportToCSV() {
-   let csv = 'Ark Merchandise Disclosure Export\n\n';
-            
-  // Basic info
-   csv += 'Artist,' + (document.getElementById('artist').value || '') + '\n';
-   csv += 'Date,' + (document.getElementById('date').value || '') + '\n';
+		function roundDownToNearest(num, roundDown) {
+			return Math.floor(num / roundDown) * roundDown;
+		}
 
-   csv += 'Ark  Starting Cash,' + (document.getElementById('startingCash').value || '0') + '\n\n';
-						
-	 csv += 'Artist  Starting Cash,' + (document.getElementById('startingCashArtist').value || '0') + '\n\n';
-										
-   csv += 'Round Down $,' + (document.getElementById('roundDown').value || '') + '\n';
-												
-// Merchandise
-   csv += 'Merchandise Sales\n';
-   csv += 'Title,Type,# In,Out,Comp,# Sold,Sale Price,Total\n';
-	 
-   const merchRows = document.querySelectorAll('#merchandiseTable tbody tr');
-     
-	 merchRows.forEach(row => {
-       const inputs = row.querySelectorAll('input');
-       const rowData = Array.from(inputs).map(input => input.value || '0');
-       csv += rowData.join(',') + '\n';
-            }
-			);
-            
-   // Cash breakdown
-      csv += '\nCash Breakdown\n';
-      csv += 'Type,Amount\n';
-      csv += 'Credit/Debit,' + (document.getElementById('creditDebit').value || '0') + '\n';
-      csv += 'Checks,' + (document.getElementById('checks').value || '0') + '\n';
-      csv += 'Cash,' + (document.getElementById('cash').value || '0') + '\n';
-            
- 
-	// currency breakdown
-	csv += '\currency  Breakdown\n';
-      csv += 'Type,Nimber,Amount\n';
-      csv += 'Change,,' + (document.getElementById('changeAmount').textContent + '\n' || '0\n');
-			
-      csv += '$1s,' + (document.getElementById('ones').value + "," || '0,');
-      csv +=  (document.getElementById('onesAmount').textContent + "\n" || '0\n' );
-			
-      csv += '$$5s,' + (document.getElementById('fives').value + "," || '0,');
-      csv +=  (document.getElementById('fivesAmount').textContent + "\n" || '0\n');
-			
-      csv += '$$10s,' + (document.getElementById('tens').value + "," || '0,');
-      csv +=  (document.getElementById('tensAmount').textContent + "\n" || '0\n' );
 
-	      csv += '$20s,' + (document.getElementById('twenties').textContent + "," || '0,');
-      csv +=  (document.getElementById('twentiesAmount').textContent + "\n" || '0\n' + '\n');
-	
+		function exportToCSV() {
+			let csv = 'Ark Merchandise Disclosure Export\n\n';
+
+			// Basic info
+			csv += 'Artist,' + (document.getElementById('artist').value || '') + '\n';
+			csv += 'Date,' + (document.getElementById('date').value || '') + '\n';
+
+			csv += 'Ark  Starting Cash,' + (document.getElementById('startingCash').value || '0') + '\n\n';
+
+			csv += 'Artist  Starting Cash,' + (document.getElementById('startingCashArtist').value || '0') + '\n\n';
+
+			csv += 'Round Down $,' + (document.getElementById('roundDown').value || '') + '\n';
+
+			// Merchandise
+			csv += 'Merchandise Sales\n';
+			csv += 'Title,Type,# In,Out,Comp,# Sold,Sale Price,Total\n';
+
+			const merchRows = document.querySelectorAll('#merchandiseTable tbody tr');
+
+			merchRows.forEach(row => {
+				const inputs = row.querySelectorAll('input');
+				const rowData = Array.from(inputs).map(input => input.value || '0');
+				csv += rowData.join(',') + '\n';
+			});
+
+			// Cash breakdown
+			csv += '\nCash Breakdown\n';
+			csv += 'Type,Amount\n';
+			csv += 'Credit/Debit,' + (document.getElementById('creditDebit').value || '0') + '\n';
+			csv += 'Checks,' + (document.getElementById('checks').value || '0') + '\n';
+			csv += 'Cash,' + (document.getElementById('cash').value || '0') + '\n';
+
+
+			// currency breakdown
+			csv += '\currency  Breakdown\n';
+			csv += 'Type,Nimber,Amount\n';
+			csv += 'Change,,' + (document.getElementById('changeAmount').textContent + '\n' || '0\n');
+
+			csv += '$1s,' + (document.getElementById('ones').value + "," || '0,');
+			csv += (document.getElementById('onesAmount').textContent + "\n" || '0\n');
+
+			csv += '$$5s,' + (document.getElementById('fives').value + "," || '0,');
+			csv += (document.getElementById('fivesAmount').textContent + "\n" || '0\n');
+
+			csv += '$$10s,' + (document.getElementById('tens').value + "," || '0,');
+			csv += (document.getElementById('tensAmount').textContent + "\n" || '0\n');
+
+			csv += '$20s,' + (document.getElementById('twenties').textContent + "," || '0,');
+			csv += (document.getElementById('twentiesAmount').textContent + "\n" || '0\n' + '\n');
+
 			csv += '$50s,' + (document.getElementById('fifties').value + "," || '0,');
-      csv +=  (document.getElementById('fiftiesAmount').textContent + "\n" || '0\n' );
-	      csv += '$100s,' + (document.getElementById('hundreds').textContent + "," || '0,');
-      csv +=  (document.getElementById('hundredsAmount').textContent + "\n" || '0\n' );
-	
-	
-			// Summary
-      csv += '\nSummary\n';
-      csv += 'Merchandise Total,' + document.getElementById('merchTotal').textContent.replace('$', '') + '\n';
-      
-      let arkCut = parseFloat(document.getElementById('arkCut').value) || 0;
-       csv += "~" + arkCut + '% Due to Ark,' + document.getElementById('arkShare').textContent.replace('$', '') + '\n';
-			csv += '~' + (100 - arkCut) + '% Performer Total,' + document.getElementById('performerShare').textContent.replace('$', '') + '\n';
-       csv += "~" + (100 - arkCut) + '% Due to Performer,' + document.getElementById('cashDuePerformer').textContent.replace('$', '') + '\n';
-            
- // Download
-     const blob = new Blob([csv], { type: 'text/csv' });
-     const url = window.URL.createObjectURL(blob);
-     const a = document.createElement('a');
-     a.href = url;
-     a.download = 'ark_merchandise_disclosure_' + new Date().toISOString().split('T')[0] + '.csv';
-            a.click();
-            window.URL.revokeObjectURL(url);
- }
-        
- // Initialize calculations
-   calculateTotals();
+			csv += (document.getElementById('fiftiesAmount').textContent + "\n" || '0\n');
+			csv += '$100s,' + (document.getElementById('hundreds').textContent + "," || '0,');
+			csv += (document.getElementById('hundredsAmount').textContent + "\n" || '0\n');
 
- function PrintReport() {
-	 if ( document.getElementById('creditDebit').value.length == 0 || document.getElementById('cash').value.length == 0 ) {
-		 if ( confirm("It is best to supply Cash, Chrcks, snd Credit/Drbit value. Print Anyway?") ) {
-			   window.print();
-		 }
-	 } else
-	  { window.print()}
-	 
- }
- </script>
+
+			// Summary
+			csv += '\nSummary\n';
+			csv += 'Merchandise Total,' + document.getElementById('merchTotal').textContent.replace('$', '') + '\n';
+
+			let arkCut = parseFloat(document.getElementById('arkCut').value) || 0;
+			csv += "~" + arkCut + '% Due to Ark,' + document.getElementById('arkShare').textContent.replace('$', '') + '\n';
+			csv += '~' + (100 - arkCut) + '% Performer Total,' + document.getElementById('performerShare').textContent.replace('$', '') + '\n';
+			csv += "~" + (100 - arkCut) + '% Due to Performer,' + document.getElementById('cashDuePerformer').textContent.replace('$', '') + '\n';
+
+			// Download
+			const blob = new Blob([csv], { type: 'text/csv' });
+			const url = window.URL.createObjectURL(blob);
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = 'ark_merchandise_disclosure_' + new Date().toISOString().split('T')[0] + '.csv';
+			a.click();
+			window.URL.revokeObjectURL(url);
+		}
+
+		// Initialize calculations
+		calculateTotals();
+
+		function PrintReport() {
+			if (document.getElementById('creditDebit').value.length == 0 || document.getElementById('cash').value.length == 0) {
+				if (confirm("It is best to supply Cash, Chrcks, snd Credit/Drbit value. Print Anyway?")) {
+					window.print();
+				}
+			} else { window.print() }
+
+		}
+	</script>
 
 </body>
+
 </html>

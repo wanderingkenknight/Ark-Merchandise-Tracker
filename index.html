@@ -74,7 +74,11 @@
 			}
 
 			td {
-				font-size: 14px;
+        font-size: 15px;
+				text-align: center
+			}
+	  	#revenueSplit table  td {
+        font-size: 24px;
 				text-align: center
 			}
 		}
@@ -156,7 +160,7 @@
 				</div>
 			</div>
 
-			<div id="cashtable" style="width: 50%; ">
+			<div id="cashtable" style="width: 49%; ">
 				<div style="float: left">
 					<h2>Breakdown</h2>
 					<table style="float: left" class="cash-table">
@@ -264,7 +268,7 @@
 					</tr>
 
 					<tr>
-						<td id="arkCutText">% Due to The Ark (rounded down):</td>
+						<td id="arkCutText">~% Due to The Ark:</td>
 						<td id="arkShare">$0.00</td>
 					</tr>
 					<tr>
@@ -379,7 +383,7 @@
 			document.getElementById('lessCreditsChecks').textContent = '$' + lessCreditsChecks.toFixed(2);
 			document.getElementById('netCash').textContent = '$' + netCash.toFixed(2);
 
-			document.getElementById('arkCutText').textContent = document.getElementById('arkCut').value + "% Due The Ark (rounded down):";
+			document.getElementById('arkCutText').textContent = "~" +  document.getElementById('arkCut').value + "% Due The Ark:";
 
 			let temp = 100 - (arkCut * 100);
 			document.getElementById('petformerCutText').textContent = "~" + temp + "% Due Artist:";

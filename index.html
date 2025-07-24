@@ -497,8 +497,10 @@
 		calculateTotals();
 
 		function PrintReport() {
-			if (document.getElementById('creditDebit').value.length == 0 || document.getElementById('cash').value.length == 0) {
-				if (confirm("It is best to supply Cash, Chrcks, snd Credit/Drbit value. Print Anyway?")) {
+			if (document.getElementById('creditDebit').value.length == 0 || document.getElementById('artist').value.length == 0 || document.getElementById('cash').value.length == 0 ||
+			document.getElementById('date').value.length == 0
+			) {
+				if (confirm("It is best to supply the Artist's name,  Date, Cash, Chrcks, snd Credit/Drbit value. Print Anyway?")) {
 					window.print();
 				}
 			} else { window.print() }

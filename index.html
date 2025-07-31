@@ -150,13 +150,15 @@
 				</tbody>
 			</table>
 
-			<div style="padding-top:40px; padding-bottom:20px">
+			<div style="padding-top:1em; padding-bottom:20px">
 				<div id="controls">
 					<button style="font-size: 40px" onclick="addMerchRow()">+ Add Merchandise Item
 					</button>
 					<br><br>
+				
 					<button style="font-size: 40px" onclick="PrintReport()">🖨️ Print Report</button>
-					<button style="margin-left:40px; font-size: 40px" onclick="exportToCSV()">📊 Export to CSV</button>
+					<button style="padding-left:1em; font-size: 40px" onclick="exportToCSV()">📊 Export to CSV</button>
+				 	<button style="padding-left:1em; font-size: 40px" onclick="clearData()">Clear Data</button>
 				</div>
 			</div>
 
@@ -580,12 +582,6 @@ document.addEventListener('input', (e) => {
 // Load saved data on startup
 window.addEventListener('DOMContentLoaded', loadData);
 
-// ---------- ADD CLEAR BUTTON ----------
-const clearButton = document.createElement('button');
-clearButton.textContent = "🧹 Clear Data";
-clearButton.style.fontSize = "40px";
-clearButton.onclick = clearData;
-document.getElementById('controls').appendChild(clearButton);
 	</script>
 
 </body>

@@ -510,6 +510,82 @@
 			} else { window.print() }
 
 		}
+		
+		// ---------- LOCAL STORAGE PERSISTENCE -----------
+
+function saveData() {
+	const data = {
+		fields: {},
+		merchandise: [],
+	};
+
+	// Save all inputs (except readonly)
+	document.querySelectorAll('input:not([readonly])').forEach(input => {
+		data.fields[input.id] = input.value;
+	});
+
+	// Save merchandise rows
+	const merchRows = document.querySelectorAll('#merchandiseTable tbody tr');
+	merchRows.forEach(row => {
+		const values = Array.from(row.querySelectorAll('input')).map(i => i.value);
+		data.merchandise.push(values);
+	});
+
+	localStorage.setItem('arkMerchData', JSON.stringify(data));
+}
+
+function loadData() {
+	const data = JSON.parse(localStorage.getItem('arkMerchData'));
+	if (!data) return;
+
+	// Restore inputs
+	for (const id in data.fields) {
+		const input = document.getElementById(id);
+		if (input) input.value = data.fields[id];
+	}
+
+	// Clear default merch row
+	const tbody = document.querySelector('#merchandiseTable tbody');
+	tbody.innerHTML = '';
+
+	// Restore merchandise rows
+	data.merchandise.forEach(rowValues => {
+		const row = tbody.insertRow();
+		row.innerHTML = rowValues.map((val, i) => {
+			const readonly = (i === 5 || i === 7) ? 'readonly' : '';
+			const step = (i === 6 || i === 7) ? 'step="0.01"' : '';
+			const type = (i === 0 || i === 1) ? 'text' : 'number';
+			const handler = (i === 5 || i === 7) ? '' : 'oninput="calculateRow(this); calculateTotals(); saveData()"';
+			return `<td><input type="${type}" ${readonly} ${step} value="${val}" ${handler}></td>`;
+		}).join('');
+	});
+
+	calculateTotals();
+}
+
+function clearData() {
+	if (confirm("Are you sure you want to clear all saved data?")) {
+		localStorage.removeItem('arkMerchData');
+		location.reload();
+	}
+}
+
+// Auto-save all input changes
+document.addEventListener('input', (e) => {
+	if (e.target.tagName === 'INPUT') {
+		saveData();
+	}
+});
+
+// Load saved data on startup
+window.addEventListener('DOMContentLoaded', loadData);
+
+// ---------- ADD CLEAR BUTTON ----------
+const clearButton = document.createElement('button');
+clearButton.textContent = "🧹 Clear Data";
+clearButton.style.fontSize = "40px";
+clearButton.onclick = clearData;
+document.getElementById('controls').appendChild(clearButton);
 	</script>
 
 </body>

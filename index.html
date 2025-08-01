@@ -1,4 +1,4 @@
-html lang="en">
+<html lang="en">
 
 <head>
 	<meta charset="utf-8">
@@ -69,7 +69,21 @@ html lang="en">
 			div#controls,
 			div#controls * {
 				display: none !important;
-			}
+}
+	  html, body {
+	    height: 100%;
+	    margin: 0;
+	    padding: 0;
+	  }
+	
+	  #finalReport {
+	    position: absolute;
+	    bottom: 0;
+	    width: 100%;
+	    page-break-inside: avoid;
+	  }
+}
+		
 
 			td {
         font-size: 15px;
@@ -160,7 +174,7 @@ html lang="en">
 				 	<button style="padding-left:1em; font-size: 40px" onclick="clearData()">Clear Data</button>
 				</div>
 			</div>
-
+      <div id="finalReport">
 			<div id="cashtable" style="width: 49%; ">
 				<div style="float: left">
 					<h2>Breakdown</h2>
@@ -298,6 +312,7 @@ html lang="en">
 				</table>
 			</div>
 		</div>
+	</div>
 	</div>
 	<script>
 		function NaNFixer(i) {

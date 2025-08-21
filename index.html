@@ -273,7 +273,7 @@
 				</table>
 			</div>
 
-			<div style="float: left; margin-left: 20px; max-width: 10%">
+			<div style="float: left; margin-left: 20px; max-width:10%">
 				<h2>Revenue Split</h2>
 				<table id="revenueSplit">
 					<tr>
@@ -358,7 +358,10 @@
 			// determined Ark cut 
 
 			let arkCut = parseFloat(document.getElementById('arkCut').value) || 0;
-			arkCut = arkCut / 100;
+			if (arkCut != 0) {
+				arkCut = arkCut / 100; } else {
+			      arkCut = 0;
+				}
 
 			// Calculate merchandise total
 
@@ -434,7 +437,10 @@
 		}
 
 		function roundDownToNearest(num, roundDown) {
-			return Math.floor(num / roundDown) * roundDown;
+			if (roundDown != 0 ) {
+			   return Math.floor(num / roundDown) * roundDown;
+			 } else { return num;
+			 }
 		}
 
 

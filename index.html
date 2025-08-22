@@ -173,7 +173,7 @@
 					<button style="padding-left:1em; font-size: 40px" onclick="exportToCSV()">📊 Export to CSV</button>
 					<br>
 				 	<button style="padding-left:1em; font-size: 40px" onclick="clearData()">Clear and Reset  Data</button>
-				 	<button style="padding-left:1em; font-size: 40px" onclick="createNewForm()"> reate New Form in New Tab</button>
+				 	<button style="padding-left:1em; font-size: 40px" onclick="createNewForm()"> Create New Form in New Tab</button>
 				</div>
 			</div>
       <div id="finalReport">
@@ -317,6 +317,13 @@
 	</div>
 	</div>
 	<script>
+		// ---------- LOCAL STORAGE PERSISTENCE -----------
+
+// Each tab gets its own unique formId from the URL
+const urlParams = new URLSearchParams(window.location.search);
+const formId = urlParams.get('formId') || 'arkMerchData_default';
+
+		
 		function NaNFixer(i) {
 			// if the tr t of thr passed objecg includds "isnan" it is trmoved. 
 			if (i) {
@@ -535,56 +542,58 @@
 
 		}
 		
-		// ---------- LOCAL STORAGE PERSISTENCE -----------
-
 function saveData() {
-	const data = {
-		fields: {},
-		merchandise: [],
-	};
+    const data = { fields: {}, merchandise: [] };
 
-	// Save all inputs (except readonly)
-	document.querySelectorAll('input:not([readonly])').forEach(input => {
-		data.fields[input.id] = input.value;
-	});
+    // Save all inputs (except readonly)
+    document.querySelectorAll('input:not([readonly])').forEach(input => {
+        data.fields[input.id] = input.value;
+    });
 
-	// Save merchandise rows
-	const merchRows = document.querySelectorAll('#merchandiseTable tbody tr');
-	merchRows.forEach(row => {
-		const values = Array.from(row.querySelectorAll('input')).map(i => i.value);
-		data.merchandise.push(values);
-	});
+    // Save merchandise rows
+    const merchRows = document.querySelectorAll('#merchandiseTable tbody tr');
+    merchRows.forEach(row => {
+        const values = Array.from(row.querySelectorAll('input')).map(i => i.value);
+        data.merchandise.push(values);
+    });
 
-	localStorage.setItem('arkMerchData', JSON.stringify(data));
+    localStorage.setItem(formId, JSON.stringify(data));
 }
 
 function loadData() {
-	const data = JSON.parse(localStorage.getItem('arkMerchData'));
-	if (!data) return;
+    const data = JSON.parse(localStorage.getItem(formId));
+    if (!data) return;
 
-	// Restore inputs
-	for (const id in data.fields) {
-		const input = document.getElementById(id);
-		if (input) input.value = data.fields[id];
-	}
+    // Restore inputs
+    for (const id in data.fields) {
+        const input = document.getElementById(id);
+        if (input) input.value = data.fields[id];
+    }
 
-	// Clear default merch row
-	const tbody = document.querySelector('#merchandiseTable tbody');
-	tbody.innerHTML = '';
+    // Clear default merch row
+    const tbody = document.querySelector('#merchandiseTable tbody');
+    tbody.innerHTML = '';
 
-	// Restore merchandise rows
-	data.merchandise.forEach(rowValues => {
-		const row = tbody.insertRow();
-		row.innerHTML = rowValues.map((val, i) => {
-			const readonly = (i === 5 || i === 7) ? 'readonly' : '';
-			const step = (i === 6 || i === 7) ? 'step="0.01"' : '';
-			const type = (i === 0 || i === 1) ? 'text' : 'number';
-			const handler = (i === 5 || i === 7) ? '' : 'oninput="calculateRow(this); calculateTotals(); saveData()"';
-			return `<td><input type="${type}" ${readonly} ${step} value="${val}" ${handler}></td>`;
-		}).join('');
-	});
+    // Restore merchandise rows
+    data.merchandise.forEach(rowValues => {
+        const row = tbody.insertRow();
+        row.innerHTML = rowValues.map((val, i) => {
+            const readonly = (i === 5 || i === 7) ? 'readonly' : '';
+            const step = (i === 6 || i === 7) ? 'step="0.01"' : '';
+            const type = (i === 0 || i === 1) ? 'text' : 'number';
+            const handler = (i === 5 || i === 7) ? '' : 'oninput="calculateRow(this); calculateTotals(); saveData()"';
+            return `<td><input type="${type}" ${readonly} ${step} value="${val}" ${handler}></td>`;
+        }).join('');
+    });
 
-	calculateTotals();
+    calculateTotals();
+}
+
+function clearData() {
+    if (confirm("Are you sure you want to clear all saved data?")) {
+        localStorage.removeItem(formId);
+        location.reload();
+    }
 }
 
 function clearData() {
@@ -595,20 +604,11 @@ function clearData() {
 }
 
 function createNewForm() {
+    // Unique ID for this new form
+    const newFormId = 'arkMerchData_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
 
-    // Save the current HTML state of the document
-    const formHTML = document.documentElement.outerHTML;
-
-    // Open a blank new window
-    const newWindow = window.open('', '_blank');
-
-    // Write the same HTML into the new window
-    newWindow.document.open();
-    newWindow.document.write(formHTML);
-    newWindow.document.close();
-
-    // Clear saved data in the new window so it's a fresh copy
-    newWindow.localStorage.removeItem('arkMerchData');
+    // Open the same HTML file with new formId in URL
+    window.open(window.location.pathname + '?formId=' + newFormId, '_blank');
 }
 
 

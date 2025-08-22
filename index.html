@@ -171,7 +171,9 @@
 				
 					<button style="font-size: 40px" onclick="PrintReport()">🖨️ Print Report</button>
 					<button style="padding-left:1em; font-size: 40px" onclick="exportToCSV()">📊 Export to CSV</button>
-				 	<button style="padding-left:1em; font-size: 40px" onclick="clearData()">Clear Data</button>
+					<br>
+				 	<button style="padding-left:1em; font-size: 40px" onclick="clearData()">Clear and Reset  Data</button>
+				 	<button style="padding-left:1em; font-size: 40px" onclick="createNewForm()"> reate New Form in New Tab</button>
 				</div>
 			</div>
       <div id="finalReport">
@@ -591,6 +593,24 @@ function clearData() {
 		location.reload();
 	}
 }
+
+function createNewForm() {
+
+    // Save the current HTML state of the document
+    const formHTML = document.documentElement.outerHTML;
+
+    // Open a blank new window
+    const newWindow = window.open('', '_blank');
+
+    // Write the same HTML into the new window
+    newWindow.document.open();
+    newWindow.document.write(formHTML);
+    newWindow.document.close();
+
+    // Clear saved data in the new window so it's a fresh copy
+    newWindow.localStorage.removeItem('arkMerchData');
+}
+
 
 // Auto-save all input changes
 document.addEventListener('input', (e) => {

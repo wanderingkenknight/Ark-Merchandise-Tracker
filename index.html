@@ -69,6 +69,17 @@
 			div#controls,
 			div#controls * {
 				display: none !important;
+
+		 #finalReport {
+    position: static;
+    width: 100%;
+    page-break-before: always; /* force onto a new page if content above spills */
+    page-break-inside: avoid;  /* keep the summary block itself unbroken */
+    break-before: page;        /* modern equivalent of page-break-before */
+    break-inside: avoid;       /* modern equivalent of page-break-inside */
+	  }
+		
+				
 }
 	  html, body {
 	    height: 100%;
@@ -78,7 +89,6 @@
 	
 	  #finalReport {
   position: static;
-		bottom: 0;
   width: 100%;
   page-break-inside: avoid;
   page-break-before: auto;
